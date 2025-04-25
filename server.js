@@ -1,42 +1,50 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { MongoClient } = require('mongodb');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Allow requests from anywhere
-app.use(bodyParser.json()); // Parse JSON bodies
+app.use(cors());
+app.use(bodyParser.json());
 
-// Example POST endpoint (e.g. to handle form submissions)
+// POST endpoint to handle form submissions
 app.post('/submit', (req, res) => {
   const data = req.body;
   saveData(data);
   console.log('Form data received:', data);
+  res.json({ message: "Form submitted and saved!" });
 });
 
-async function saveData(data) {
-  const client = new MongoClient("mongodb://localhost:27017");
-  
-  try {
-    await client.connect();
+// Save data to local JSON file
+function saveData(data) {
+  const filePath = path.join(__dirname, 'data.json');
 
-    const dataBase = client.db("olivery4Data");
-    const collection = dataBase.collection("formData");
+  fs.readFile(filePath, 'utf8', (err, fileData) => {
+    let existingData = [];
 
-    const result = await collection.insertOne({ data: data });
+    if (!err && fileData) {
+      try {
+        existingData = JSON.parse(fileData);
+      } catch (e) {
+        console.error('Invalid JSON in file:', e);
+      }
+    }
 
-    console.log("data saved: ", result);
-    console.log("collection: ", collection);
-  } catch (error) {
-    console.log("error: ", error);
-  } finally {
-    await client.close();
-  }
-  
-};
+    existingData.push(data);
+
+    fs.writeFile(filePath, JSON.stringify(existingData, null, 2), (err) => {
+      if (err) {
+        console.error('Failed to save data:', err);
+      } else {
+        console.log('Data successfully saved!');
+      }
+    });
+  });
+}
 
 // Start server
 app.listen(PORT, () => {
