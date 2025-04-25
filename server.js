@@ -18,11 +18,6 @@ app.post('/submit', (req, res) => {
   res.status(200).json({ message: 'Form submitted successfully!' });
 });
 
-// Example GET route (optional)
-app.get('/', (req, res) => {
-  res.send('Hello from your backend!');
-});
-
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
