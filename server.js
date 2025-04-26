@@ -51,6 +51,10 @@ app.get('/submissions', (req, res) => {
 
   console.log(process.env.Password);
 
+  console.log(password);
+
+  console.log(password === process.env.Password);
+
   if (password !== process.env.Password) {
     return res.status(401).send('Unauthorized');
   }
