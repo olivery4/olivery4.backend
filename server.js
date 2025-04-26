@@ -49,6 +49,8 @@ function saveData(data) {
 app.get('/submissions', (req, res) => {
   const password = req.headers["password"];
 
+  console.log(process.env.Password);
+
   if (password !== process.env.Password) {
     return res.status(401).send('Unauthorized');
   }
