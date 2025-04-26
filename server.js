@@ -46,6 +46,25 @@ function saveData(data) {
   });
 }
 
+app.get('/submissions', (req, res) => {
+  const filePath = path.join(__dirname, 'data.json');
+  
+  fs.readFile(filePath, 'utf8', (err, fileData) => {
+    if (err) {
+      console.error('Error reading file:', err);
+      return res.status(500).send('Server error');
+    }
+
+    try {
+      const data = JSON.parse(fileData);
+      res.json(data); // Send the array as JSON
+    } catch (e) {
+      console.error('Error parsing JSON:', e);
+      res.status(500).send('Invalid data format');
+    }
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
