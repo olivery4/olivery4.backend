@@ -47,6 +47,12 @@ function saveData(data) {
 }
 
 app.get('/submissions', (req, res) => {
+  const password = req.headers["password"];
+
+  if (password !== process.env.Password) {
+    return res.status(401).send('Unauthorized');
+  }
+  
   const filePath = path.join(__dirname, 'data.json');
   
   fs.readFile(filePath, 'utf8', (err, fileData) => {
