@@ -60,11 +60,11 @@ function saveData(data) {
 app.get('/submissions', (req, res) => {
   const password = req.headers["password"];
 
-  console.log("Authorized");
-
   if (password !== process.env.Password) {
     return res.status(401).send('Unauthorized');
   }
+
+  console.log("Authorized");
   
   const filePath = path.join(__dirname, 'data.json');
   
