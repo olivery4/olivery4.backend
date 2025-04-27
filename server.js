@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 // POST endpoint to handle form submissions
 app.post('/submit', (req, res) => {
   const data = req.body;
-  console.log(data);
   saveData(data);
   console.log('Form data received:', data);
   res.json({ message: "Form submitted and saved!" });
@@ -61,11 +60,7 @@ function saveData(data) {
 app.get('/submissions', (req, res) => {
   const password = req.headers["password"];
 
-  console.log(process.env.Password);
-
-  console.log(password);
-
-  console.log(password === process.env.Password);
+  console.log("Authorized");
 
   if (password !== process.env.Password) {
     return res.status(401).send('Unauthorized');
