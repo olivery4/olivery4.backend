@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 // POST endpoint to handle form submissions
 app.post('/submit', (req, res) => {
   const data = req.body;
+  console.log(data);
   saveData(data);
   console.log('Form data received:', data);
   res.json({ message: "Form submitted and saved!" });
