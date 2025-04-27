@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 // POST endpoint to handle form submissions
 app.post('/submit', (req, res) => {
+  console.log(req);
   const data = req.body;
   saveData(data);
   console.log('Form data received:', data);
