@@ -19,7 +19,7 @@ app.post('/submit', (req, res) => {
   res.json({ message: "Form submitted and saved!" });
 });
 
-app.post('/submit', (req, res) => {
+app.post('/test', (req, res) => {
   const xForwardedFor = req.headers['x-forwarded-for'];
   
   const clientIp = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
