@@ -27,7 +27,6 @@ app.post('/test', (req, res) => {
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
   const seconds = new Date().getSeconds();
-  const clientIp = '192.168.0.1'; // Example IP, replace with actual IP variable
   
   const timeKey = `Current time: ${hours}:${minutes}:${seconds}`;
   
