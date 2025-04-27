@@ -24,9 +24,14 @@ app.post('/test', (req, res) => {
   
   const clientIp = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
 
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
   console.log('Client IP:', clientIp);
 
-  saveData({clientIp});
+  saveData({`Current time: ${hours}:${minutes}:${seconds}`: clientIp});
 });
 
 
