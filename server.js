@@ -25,9 +25,8 @@ app.post('/test', (req, res) => {
   const clientIp = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
 
   console.log('Client IP:', clientIp);
-  console.log('Data received:', req.body);
 
-  res.send('Data submitted');
+  saveData({clientIp});
 });
 
 
