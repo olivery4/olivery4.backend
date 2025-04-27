@@ -24,14 +24,21 @@ app.post('/test', (req, res) => {
   
   const clientIp = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
 
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
+  const hours = new Date().getHours();
+  const minutes = new Date().getMinutes();
+  const seconds = new Date().getSeconds();
+  const clientIp = '192.168.0.1'; // Example IP, replace with actual IP variable
+  
+  const timeKey = `Current time: ${hours}:${minutes}:${seconds}`;
+  
+  // Create an object with the dynamic key
+  const data = {
+    [timeKey]: clientIp
+  };
 
-  console.log('Client IP:', clientIp);
-
-  saveData({`Current time: ${hours}:${minutes}:${seconds}`: clientIp});
+  saveData(data);
+  
+  console.log("clientIp: ", clientIp);
 });
 
 
