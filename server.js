@@ -13,12 +13,23 @@ app.use(bodyParser.json());
 
 // POST endpoint to handle form submissions
 app.post('/submit', (req, res) => {
-  console.log(req);
   const data = req.body;
   saveData(data);
   console.log('Form data received:', data);
   res.json({ message: "Form submitted and saved!" });
 });
+
+app.post('/submit', (req, res) => {
+  const xForwardedFor = req.headers['x-forwarded-for'];
+  
+  const clientIp = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
+
+  console.log('Client IP:', clientIp);
+  console.log('Data received:', req.body);
+
+  res.send('Data submitted');
+});
+
 
 // Save data to local JSON file
 function saveData(data) {
